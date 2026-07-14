@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import {UpperCasePipe, CurrencyPipe} from '@angular/common';
+import { Component, Input, Output } from '@angular/core';
+import { UpperCasePipe, CurrencyPipe} from '@angular/common';
 import { PrecoFormatadoPipe } from '../../pipes/preco-formatado-pipe';
+
+//novo import(eu acho) para usar o, declaradores(input e output)
 
 @Component({
   selector: 'app-produto',
@@ -8,14 +10,10 @@ import { PrecoFormatadoPipe } from '../../pipes/preco-formatado-pipe';
   templateUrl: './produto.html',
   styleUrl: './produto.css',
 })
+// nova string (sdiciona/substitui modelo antigo de nomeclatura por um novo. preco e nome)
+
 export class Produto {
-//produto = 'Notebook';
-//preco = 2500;
-//mostrarPreco = true;
-//mostrarProduto = true;
-produtos = [
-  {produto: 'Monitor', preco: 1000},
-  {produto: 'Teclado', preco: 49.99},
-  {produto: 'Mouse', preco: 25.59},
-];
-}
+ @Input() nome: string = '';
+ @Input() preco: number = 0;
+
+ }
