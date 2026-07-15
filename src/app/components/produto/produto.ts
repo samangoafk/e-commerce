@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UpperCasePipe, CurrencyPipe} from '@angular/common';
 import { PrecoFormatadoPipe } from '../../pipes/preco-formatado-pipe';
 
@@ -13,7 +13,15 @@ import { PrecoFormatadoPipe } from '../../pipes/preco-formatado-pipe';
 // nova string (sdiciona/substitui modelo antigo de nomeclatura por um novo. preco e nome)
 
 export class Produto {
+  //entrada de dados de lista-produtos.ts
  @Input() nome: string = '';
  @Input() preco: number = 0;
+
+//saída de dados de produtos selecionados para a lista-produtos.ts
+@Output() produtoSelecionado = new EventEmitter<string>();
+
+selecipnarProduto() {
+  this.produtoSelecionado.emit(this.nome);
+}
 
  }
