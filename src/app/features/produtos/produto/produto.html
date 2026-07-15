@@ -1,0 +1,11 @@
+<!--Cria uma div para exibir as informações do produto -->
+<div class="produto">
+
+    <h3>{{ nome | uppercase }}</h3>
+    <p>{{ preco | precoFormatado }}</p>
+    <button (click)="selecipnarProduto()">
+        Selecionar {{ nome }}
+    </button> 
+
+</div>
+
