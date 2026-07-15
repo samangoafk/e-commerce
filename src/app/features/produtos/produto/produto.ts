@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UpperCasePipe, CurrencyPipe} from '@angular/common';
-import { PrecoFormatadoPipe } from '../../../pipes/preco-formatado-pipe';
+import { PrecoFormatadoPipe } from '../../../shared/pipes/preco-formatado-pipe';
 
 //novo import(eu acho) para usar o, declaradores(input e output)
 
@@ -22,6 +22,7 @@ export class Produto {
 
 selecipnarProduto() {
   this.produtoSelecionado.emit(this.nome);
+
 }
 
  }
