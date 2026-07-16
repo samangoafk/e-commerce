@@ -24,6 +24,7 @@ produtos = signal([
   {nome: 'Headset Gamer',
      preco:699.99},
 ]);
+
 exibirProduto (nome:string){
    console.log ('Produto selecionado: ', nome);
 }
