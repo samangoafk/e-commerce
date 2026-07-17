@@ -3,6 +3,7 @@ import { signal } from '@angular/core';
 import { Produto } from '../produto/produto';
 import { computed } from '@angular/core';
 import { PrecoFormatadoPipe } from '../../../shared/pipes/preco-formatado-pipe';
+import { effect } from '@angular/core';
 
 @Component({
   selector: 'app-lista-produtos',
@@ -10,6 +11,7 @@ import { PrecoFormatadoPipe } from '../../../shared/pipes/preco-formatado-pipe';
   templateUrl: './lista-produtos.html',
   styleUrl: './lista-produtos.css',
 })
+
 export class ListaProdutos {
 produtos = signal([
    
@@ -26,12 +28,14 @@ produtos = signal([
 ]);
 
 exibirProduto (nome:string){
-   console.log ('Produto selecionado: ', nome);
+   //console.log ('Produto selecionado: ', nome);
+   this.produtoSelecionado.set(nome);
 }
 adicionarProduto(){
  this.produtos.update(listaAtual => [
    ...listaAtual, { nome: 'Polystation 5', preco: 10000 }
  ]);
+
 }
 totalProdutos = computed(() => this.produtos().length);
 valorTotal = computed(() => { 
@@ -42,5 +46,23 @@ subtituiProdutos(){
    this.produtos.set([
       {nome: 'Arroz Fazenda', preco: 13.56}
    ]);
+
 }
+constructor(){
+ effect(() => {
+   console.log('Lista de Produtos Alterados:', this.produtos());
+ });
+
+ effect(() => {
+   console.log('Valor total atualizado: ', this.valorTotal());
+ });
+
+ effect(() => {
+if (typeof document !== 'undefined') {
+    document.title = `(${this.totalProdutos()}) Minha Loja`
+  }
+ });
+
+ }
+ produtoSelecionado = signal<string | null> (null);
 }
