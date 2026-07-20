@@ -1,6 +1,12 @@
-<!-- remove o template padrao angular -->
- <!-- Adiciona o componente Produto para exibir as informações de preço -->
- <h1>Minha Loja Virtual</h1>
- <app-lista-produtos></app-lista-produtos>
+<!-- Cabeçalho: nome da nossa loja criada com a variável {{nomeLoja}}-->
+ <!-- Pra alterar o nome da Loja Localizar ou buscar na class App Variável nomeloja-->
+<h1>{{nomeLoja}}</h1>
 
- <!-- remove e adciona -->
+<!-- Barra de Navegação, adicionar as rotas-->
+<nav>
+    <a routerLink="/">Produtos</a>
+    <a routerLink="/carrinho">Carrinho</a>
+</nav>
+<hr />
+
+<router-outlet></router-outlet>
