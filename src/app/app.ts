@@ -9,5 +9,5 @@ import { RouterOutlet, RouterLink } from '@angular/router'; //adiciona importaç
 })
 export class App {
   protected readonly title = signal('e-commerce');
-  nomeLoja = 'MERCADO LISO';
+  nomeLoja = 'CASAS VAZIAS';
 }
