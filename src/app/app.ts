@@ -9,8 +9,9 @@ import { usuarioLogado, login, logout } from './core/auth';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('e-commerce');
-  nomeLoja = 'CASAS VAZIAS';
+  protected readonly title = signal('e-commerce'); 
+
+  nomeLoja = 'CASAS VAZIA';
   usuarioLogado = usuarioLogado;
   login = login;
   logout = logout;
