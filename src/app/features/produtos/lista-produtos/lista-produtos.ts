@@ -5,6 +5,7 @@ import { computed } from '@angular/core';
 import { PrecoFormatadoPipe } from '../../../shared/pipes/preco-formatado-pipe';
 import { effect } from '@angular/core';
 import { UpperCasePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-lista-produtos',
@@ -14,14 +15,33 @@ import { UpperCasePipe } from '@angular/common';
 })
 
 export class ListaProdutos {
-produtos = signal([
-   
-  {nome: 'Teclado Gamer', preco:149.99},
-  {nome: 'Mouse Gamer', preco:299.99},
-  {nome: 'Monitor Gamer', preco:1599.99},
-  {nome: 'Desktop Gamer', preco:4999.99},
-  {nome: 'Headset Gamer', preco:699.99},
-]);
+  //! remove a lista de produtos, dados carregados via API Fakestar 
+produtos = signal <
+{ nome: string; preco: number } []> ([])
+//? criar estado de carregamento, 
+//** true: requisitos em andamento 
+//! false: esconder o indicator e exibir lista de produtos
+carregando = signal(true);
+
+//!cria um metodo para a requisição dos produtos
+carregarProdutos(){
+  //! inciar loading 
+  this.carregando.set(true);
+  this.http.get<{title: string; price: number}[]>
+  ('https://fakestoreapi.com/products').subscribe({
+    next: (dados) => {
+
+        //! adapta api para o projeto
+        const produtosFormatados = dados.map(p =>({
+         nome: p.title,
+         preco: p.price,
+      }));
+      this.produtos.set(produtosFormatados)
+      this.carregando.set(false); 
+    },
+    //? finalisa loading
+  });
+}
 
 exibirProduto (nome:string){
    //console.log ('Produto selecionado: ', nome);
@@ -48,7 +68,12 @@ subtituiProdutos(){
    ]);
 
 }
-constructor(){
+//! injetar httpClient dentro de construct, reestruturar construtor
+constructor( private http: HttpClient){
+  //! carregar api
+  this.carregarProdutos();
+
+  //! effect se mantém o mesmo
  effect(() => {
    console.log('Lista de Produtos Alterados:', this.produtos());
  });
