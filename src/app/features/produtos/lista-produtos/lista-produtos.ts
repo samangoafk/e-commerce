@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Produto } from '../produto/produto';
 import { computed } from '@angular/core';
 import { PrecoFormatadoPipe } from '../../../shared/pipes/preco-formatado-pipe';
 import { effect } from '@angular/core';
 import { UpperCasePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+//import { HttpClient } from '@angular/common/http';
+import { produtoService } from '../produto.service';
+import { Inject } from '@angular/core';
+
 
 @Component({
   selector: 'app-lista-produtos',
@@ -24,22 +27,22 @@ produtos = signal <
 carregando = signal(true);
 
 //!cria um metodo para a requisição dos produtos
-carregarProdutos(){
-  //! inciar loading 
-  this.carregando.set(true);
-  this.http.get<{title: string; price: number}[]>
-  ('https://fakestoreapi.com/products').subscribe({
-    next: (dados) => {
 
-        //! adapta api para o projeto
-        const produtosFormatados = dados.map(p =>({
-         nome: p.title,
-         preco: p.price,
-      }));
-      this.produtos.set(produtosFormatados)
-      this.carregando.set(false); 
-    },
-    //? finalisa loading
+carregarProdutos(){
+  this.carregando.set(true);
+
+  this.produtoService.buscarProdutos().subscribe({
+              next: (dados) => {
+                const produtos = this.produtoService.trasnformarProdutos(dados);
+                this.produtos.set(produtos);
+                this.carregando.set(false);
+              },
+              error: (erro) => {
+                console.error('Erro ao carregar os Produtos:, ', erro);
+                this.carregando.set(false);
+              },
+
+
   });
 }
 
@@ -69,7 +72,8 @@ subtituiProdutos(){
 
 }
 //! injetar httpClient dentro de construct, reestruturar construtor
-constructor( private http: HttpClient){
+//? metodo http (API)
+constructor( ){
   //! carregar api
   this.carregarProdutos();
 
@@ -95,11 +99,19 @@ if (typeof document !== 'undefined') {
  adicionarAoCarrinho(produto:{nome:string; preco:number}){
    this.carrinho.update(listaAtual =>
       [...listaAtual,produto]);}
+
+
    quantidadeCarrinho = computed(() => this.carrinho().length);
 
    totalCarrinho = computed(()=> {
       return this.carrinho().reduce((total, item) => 
       total + item.preco,0);
-   
-});
+    
+    
+    
+    
+    }
+);
+//? INJECT
+private produtoService = inject(produtoService)
 }
