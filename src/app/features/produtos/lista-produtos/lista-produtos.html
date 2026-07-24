@@ -1,4 +1,4 @@
-<h2>
+<!-- <h2>
 Produto Selecionado:
 @if (produtoSelecionado()) {
     <strong style="color: green;" >
@@ -9,7 +9,6 @@ Produto Selecionado:
 }
 </h2>
 
-<!-- Atualização de  template para usar a sintaxe moderna do Angular e exibir o estado de carregamento: -->
 <h2> Produto: </h2>
 
 @if (carregando()) {
@@ -33,9 +32,34 @@ Produto Selecionado:
 <h3>Valor total: {{valorTotal() |precoFormatado}}</h3> 
 <p><button (click)="subtituiProdutos()">Substituir Produtos</button></p>
 <hr>
+ -->
 
+<h2> Produtos: </h2>
 
+<!-- Estado Um-->
+@if(carregando()) {
+    <p>Carregando Produtos...</p>
+}
+<!-- Estado Dois-->
+ @if(erro()) {
 
+    <p style="color:red">{{ erro() }}</p>
+    <button (click)="carregarProdutos()">Tentar Novamente </button>
+ }
+
+ @if (!carregando() && !erro()) {
+    <p>Toral de Produtos: {{ totalProdutos }}</p>
+    
+    <hr>
+ @for(item of produtos(); track $index){
+    <app-produto
+        [nome] = "item.nome"
+        [preco] = "item.preco"
+    ></app-produto>
+ }
+
+ }
+ 
 
 <h2>Carrinho</h2>
 @for(item of carrinho(); track $index){
