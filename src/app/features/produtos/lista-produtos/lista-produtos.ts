@@ -25,11 +25,15 @@ produtos = signal <
 //** true: requisitos em andamento 
 //! false: esconder o indicator e exibir lista de produtos
 carregando = signal(true);
+erro = signal < string | null > (null)
 
+
+//? ============ METÓDO HTTP(API) FOI MODIFICADO PARA (ProdutoService) ===============
 //!cria um metodo para a requisição dos produtos
 
 carregarProdutos(){
   this.carregando.set(true);
+  this.erro.set(null), //? Limpa erro anterior
 
   this.produtoService.buscarProdutos().subscribe({
               next: (dados) => {
@@ -39,11 +43,14 @@ carregarProdutos(){
               },
               error: (erro) => {
                 console.error('Erro ao carregar os Produtos:, ', erro);
+                this.erro.set('Erro ao carregar Produtos. Verifique sua conexão e tente novamente.');
                 this.carregando.set(false);
               },
 
 
   });
+
+  
 }
 
 exibirProduto (nome:string){
@@ -76,6 +83,7 @@ subtituiProdutos(){
 constructor( ){
   //! carregar api
   this.carregarProdutos();
+  
 
   //! effect se mantém o mesmo
  effect(() => {
