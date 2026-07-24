@@ -15,7 +15,8 @@ export const httpInterceptor: HttpInterceptorFn =(req, next) => {
 
 
     console.log('Interceptando requisição: ', req.url);
-
+ 
+    
     return next(novaReq).pipe(
         tap({
             next: (event) => console.log('RESPONSE: ', event),
