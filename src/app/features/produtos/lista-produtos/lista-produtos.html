@@ -48,7 +48,7 @@ Produto Selecionado:
  }
 
  @if (!carregando() && !erro()) {
-    <p>Toral de Produtos: {{ totalProdutos }}</p>
+    <p>Toral de Produtos: {{ totalProdutos() }}</p>
     
     <hr>
  @for(item of produtos(); track $index){
