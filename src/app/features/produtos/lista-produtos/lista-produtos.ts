@@ -37,7 +37,7 @@ carregarProdutos(){
 
   this.produtoService.buscarProdutos().subscribe({
               next: (dados) => {
-                const produtos = this.produtoService.trasnformarProdutos(dados);
+                const produtos = this.produtoService.transformarProdutos(dados);
                 this.produtos.set(produtos);
                 this.carregando.set(false);
               },

@@ -21,7 +21,7 @@ import { Inject } from "@angular/core";
         buscarProdutos(){
             return this.http.get< ProdutoApi []>(this.API);
         }
-        trasnformarProdutos( dados: ProdutoApi[] ): Produto[] {
+        transformarProdutos( dados: ProdutoApi[] ): Produto[] {
             return dados.map((p) =>({
                 nome: p.title,
                 preco: p.price,
