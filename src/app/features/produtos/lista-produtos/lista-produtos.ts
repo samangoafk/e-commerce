@@ -8,11 +8,12 @@ import { UpperCasePipe } from '@angular/common';
 //import { HttpClient } from '@angular/common/http';
 import { produtoService } from '../produto.service';
 import { Inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
   selector: 'app-lista-produtos',
-  imports: [ Produto, PrecoFormatadoPipe, UpperCasePipe],
+  imports: [ Produto, PrecoFormatadoPipe, UpperCasePipe, MatButtonModule],
   templateUrl: './lista-produtos.html',
   styleUrl: './lista-produtos.css',
 })

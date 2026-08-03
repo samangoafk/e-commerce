@@ -1,12 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UpperCasePipe, CurrencyPipe} from '@angular/common';
 import { PrecoFormatadoPipe } from '../../../shared/pipes/preco-formatado-pipe';
+import { MatButtonModule } from '@angular/material/button';
 
 //novo import(eu acho) para usar o, declaradores(input e output)
 
 @Component({
   selector: 'app-produto',
-  imports: [UpperCasePipe, PrecoFormatadoPipe],
+  imports: [UpperCasePipe, PrecoFormatadoPipe, MatButtonModule],
   templateUrl: './produto.html',
   styleUrl: './produto.css',
 })
