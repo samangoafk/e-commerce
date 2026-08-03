@@ -55,8 +55,11 @@ Produto Selecionado:
     <app-produto
         [nome] = "item.nome"
         [preco] = "item.preco"
-    ></app-produto>
-    <button (click)="adicionarAoCarrinho(item)">Adicionar ao Carrinho</button>
+        (produtoSelecionado)="exibirProduto($event)"
+        (produtoAdicionado)="adicionarAoCarrinho($event)"
+    >
+    </app-produto>
+    <!-- <button (click)="adicionarAoCarrinho(item)">Adicionar ao Carrinho</button> -->
  }
 
  }
