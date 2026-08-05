@@ -7,7 +7,7 @@ import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterLink ],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterLink, UpperCasePipe ],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
