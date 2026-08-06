@@ -6,10 +6,11 @@ import { PrecoFormatadoPipe } from '../../../shared/pipes/preco-formatado-pipe';
 import { effect } from '@angular/core';
 import { UpperCasePipe } from '@angular/common';
 //import { HttpClient } from '@angular/common/http';
-import { produtoService } from '../produto.service';
+import { produtoService } from '../../../core/services/produto.service';
 import { Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import { CarrinhoService } from '../../../core/services/carrinho.service';
 
 
 @Component({
@@ -104,24 +105,17 @@ if (typeof document !== 'undefined') {
 
  }
  produtoSelecionado = signal<string | null> (null);
- carrinho = signal< { nome: string; preco: number }[]>([]);
+ 
 
  adicionarAoCarrinho(produto:{nome:string; preco:number}){
-   this.carrinho.update(listaAtual =>
-      [...listaAtual,produto]);}
+  this.carrinhoService.adicionar(produto);
+ }
+ 
 
+//? ============ INJECT ==============
+private produtoService = inject(produtoService); //lembrete: Nossa variável é produtoService e Não produtosService
+public carrinhoService = inject(CarrinhoService);
 
-   quantidadeCarrinho = computed(() => this.carrinho().length);
-
-   totalCarrinho = computed(()=> {
-      return this.carrinho().reduce((total, item) => 
-      total + item.preco,0);
-    
-    
-    
-    
-    }
-);
-//? INJECT
-private produtoService = inject(produtoService)
+quantidadeCarrinho = this.carrinhoService.quantidadeItens;
+totalCarrinho = this.carrinhoService.totalItens;
 }
