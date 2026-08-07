@@ -24,8 +24,17 @@ export class Checkout {
   });
 
   finalizar (){
-    console.log('Dados do Formulário: ', this.formulario.value);
-    console.log('Itens do Carrinho: ', this.carrinhoService.itens());
+    if (this.formulario.invalid){
+      console.log('Formulário Inválido!');
+      return;
+    
+    }
+
+    const dados = this.formulario.value;
+    const itens = this.carrinhoService.itens();
+
+    console.log('Dados do Formulário: ', dados);
+    console.log('Itens do Carrinho: ', itens);
   }
 
 }
