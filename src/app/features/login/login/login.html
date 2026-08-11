@@ -1,0 +1,12 @@
+<h2>Login</h2>
+<p>Informe seus dados para acessar a Loja</p> 
+@if(errologin()){
+    <p style="color:red">Não foi possível realizar o login</p>
+}
+<form [formGroup]="formulario">
+    <label>Email</label>
+    <p><input type="email" formControlName="email" placeholder="E-mail"></p>
+    <label>Senha</label>
+    <p><input type="password" formControlName="senha" placeHolder="Senha"></p>
+    <p><button type="button" (click)="entrar()" [disabled]="formulario.invalid">Entrar</button></p>
+</form>
