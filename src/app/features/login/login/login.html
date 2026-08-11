@@ -6,7 +6,28 @@
 <form [formGroup]="formulario">
     <label>Email</label>
     <p><input type="email" formControlName="email" placeholder="E-mail"></p>
+    @if(formulario.get('email')?.touched && formulario.get('email')?.invalid){
+        @if(formulario.get('email')?.errors?.['required']){
+            <br>
+            <small style="color:red">E-mail é obrigatório</small>
+        }
+        @if(formulario.get('email')?.errors?.['required']){
+            <br>
+            <small style="color:red">E-mail inválido</small>
+        }
+    }
     <label>Senha</label>
     <p><input type="password" formControlName="senha" placeHolder="Senha"></p>
+     @if(formulario.get('senha')?.touched && formulario.get('senha')?.invalid){
+        @if(formulario.get('senha')?.errors?.['required']){
+            <br>
+            <small style="color:red">A senha é obrigatória</small>
+        }
+
+        @if(formulario.get('email')?.errors?.['minLength']){
+            <br>
+            <small style="color:red">A senha deve possuir no minímo 8 letras</small>
+        }
+    }
     <p><button type="button" (click)="entrar()" [disabled]="formulario.invalid">Entrar</button></p>
 </form>
