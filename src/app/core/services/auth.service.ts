@@ -5,6 +5,7 @@ import { computed } from "@angular/core";
 
 
 
+
 type PerfilUsuario = 'admin' | 'usuario';
 
 type Usuario = {
@@ -14,6 +15,7 @@ type Usuario = {
 @Injectable({
     providedIn: 'root'
 })
+
 
 
 export class AuthService {
