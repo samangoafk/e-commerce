@@ -2,18 +2,22 @@
 
 @if(compraFinalizada()){
     <p style="color: green">Compra finaizada com sucesso :p</p>
+    <button type="button" routerLink="/produtos"> Voltar para produtos</button>
+    <button type="button" (click)="sair()">Sair</button>
 }
 
 @if(carrinhoFacade.carrinhoVazio()){
     <p style="color: red"> Seu carrinho está Vazio. Adicione produtos antes de finalizar a sua Compra</p>
-}@else {
+    <button type="button" routerLink="/produtos"> Ver Produtos</button>
+}@else if(!compraFinalizada()){
     <section>
         <h2>Resumo do Pedido</h2>
-        @for(item of carrinhoFacade.itensCarrinho(); track $index ){
-            <p>{{item.nome}} - R$ {{item.preco.toFixed(2)}}</p>
-        }
-        <h3>Total: R$ {{ carrinhoFacade.totalCarrinho().toFixed(2) }}</h3>
+        <p><strong>Itens Carrinho</strong>{{carrinhoFacade.quantidadeCarrinho()}}</p>
+        <p><strong>Total:</strong>{{carrinhoFacade.totalCarrinho()|precoFormatado}}</p>
+        <button type="button" routerLink="/carrinho">Revisar o Carrinho</button>
+      
     </section>
+
 }
 <form [formGroup]="formulario">
 
