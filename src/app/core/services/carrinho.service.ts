@@ -1,12 +1,8 @@
 import { Injectable } from "@angular/core";
 import { signal } from "@angular/core";
 import { computed } from "@angular/core";
-
-
-type ItemCarrinho = {
-    nome: string;
-    preco: number;
-}
+import { ItemCarrinho } from "../models/item-carrinho";
+//remove anyigo export class
 
 @Injectable({
     providedIn:'root'
@@ -31,5 +27,9 @@ adicionar(produto: ItemCarrinho){
 
 limpar(){
     this.carrinho.set([]);
+}
+removerItem(rmvItem:number){
+    this.carrinho.update((ListaAtual)=>
+    ListaAtual.filter((_, index)=> index !== rmvItem));
 }
 }
