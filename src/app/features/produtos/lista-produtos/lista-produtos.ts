@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 
 
+import { ItemCarrinho } from '../../../core/models/item-carrinho';
 import { CarrinhoFacade } from '../../../core/facades/carrinho.facade';
 
 
@@ -109,7 +110,7 @@ if (typeof document !== 'undefined') {
  produtoSelecionado = signal<string | null> (null);
  
 
- adicionarAoCarrinho(produto:{nome:string; preco:number}){
+ adicionarAoCarrinho(produto: ItemCarrinho){
   this.carrinhoFacade.adicionarProdutoCarrinho(produto);
  }
  
