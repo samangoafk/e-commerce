@@ -56,4 +56,7 @@ export class AuthService {
         return this.tokenJwt();
 
     }
-}
+    obterPerfil():PerfilUsuario | null{
+        return this.usuario()?.perfil ?? null;
+    }
+    }
