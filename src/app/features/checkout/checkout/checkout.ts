@@ -10,17 +10,24 @@ import { ValidationErrors } from '@angular/forms';
 //import { CarrinhoService } from '../../../core/services/carrinho.service';
 import { CarrinhoFacade } from '../../../core/facades/carrinho.facade';
 import { AuthFacade } from '../../../core/facades/auth.facade';
+import { RouterLink } from "@angular/router";
+import { Router } from '@angular/router';
+import { PrecoFormatadoPipe } from '../../../shared/pipes/preco-formatado-pipe';
+import { MatAnchor } from "@angular/material/button";
 
 
 @Component({
   selector: 'app-checkout',
-  imports: [ ReactiveFormsModule ],
+  imports: [ReactiveFormsModule, RouterLink, PrecoFormatadoPipe, MatAnchor],
   templateUrl: './checkout.html',
   styleUrl: './checkout.css',
 })
 export class Checkout { 
 
   carrinhoFacade = inject(CarrinhoFacade);
+  router = inject(Router);
+  authFacade = inject(AuthFacade);
+
   formulario = new FormGroup({
     nome: new FormControl('', [Validators.required, Validators.minLength(3), nomeSemNumeros]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -55,6 +62,11 @@ export class Checkout {
     }
 
   compraFinalizada = signal(false);
+
+  sair(){
+    this.authFacade.sair();
+    this.router.navigateByUrl('/login');
+  }
 }
 function nomeSemNumeros(control: AbstractControl): ValidationErrors | null {
   const valor = control.value;
