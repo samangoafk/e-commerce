@@ -68,8 +68,8 @@ Produto Selecionado:
  
 
 <h2>Carrinho</h2>
-@for(item of carrinhoService.itens(); track $index){
+@for(item of carrinhoFacade.itensCarrinho(); track $index){
     <p>{{ item.nome | uppercase }} - {{ item.preco | precoFormatado}}</p>
 }
-<p><strong> Itens no Carrinho:</strong>{{ carrinhoService.quantidadeItens() }}</p>
-<p><strong> Total no Carrinho:</strong>{{ carrinhoService.totalItens() | precoFormatado }}</p>
+<p><strong> Itens no Carrinho:</strong>{{ carrinhoFacade.quantidadeCarrinho() }}</p>
+<p><strong> Total no Carrinho:</strong>{{ carrinhoFacade.totalCarrinho() | precoFormatado }}</p>
