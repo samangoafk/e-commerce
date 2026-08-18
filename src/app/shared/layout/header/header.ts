@@ -5,31 +5,34 @@ import {MatToolbarModule}  from '@angular/material/toolbar';
 import { RouterLink, Router } from '@angular/router';
 import { UpperCasePipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { CarrinhoService } from '../../../core/services/carrinho.service';
-import { AuthService } from '../../../core/services/auth.service';
+
+import { AuthFacade } from '../../../core/facades/auth.facade';
+import { CarrinhoFacade } from '../../../core/facades/carrinho.facade';
 
 @Component({
   selector: 'app-header',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterLink, UpperCasePipe ],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterLink, UpperCasePipe],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header {
   nomeLoja = 'CASAS VAZIA'; //? nome do ecommerce
 
-  private carrinhoService = inject(CarrinhoService);
-  quantidade = this.carrinhoService.quantidadeItens;
-  private authService = inject(AuthService);
+  private carrinhoFacade = inject(CarrinhoFacade);
+  quantidade = this.carrinhoFacade.quantidadeCarrinho;
 
-  usuarioLogado = this.authService.usuarioLogado;
-  usuarioAtual = this.authService.usuarioAtual;
+  private authFacade = inject(AuthFacade);
+
+  usuarioLogado = this.authFacade.usuarioLogado;
+  usuarioAtual = this.authFacade.usuarioAtual;
 
   private router = inject(Router);
 
   sair(){
-    this.authService.logout();
+    this.authFacade.sair();
     this.router.navigateByUrl('/login');
   }
   
+
 
 }
