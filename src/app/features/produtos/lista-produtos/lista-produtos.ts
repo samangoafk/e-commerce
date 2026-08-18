@@ -10,7 +10,9 @@ import { produtoService } from '../../../core/services/produto.service';
 import { Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
-import { CarrinhoService } from '../../../core/services/carrinho.service';
+
+
+import { CarrinhoFacade } from '../../../core/facades/carrinho.facade';
 
 
 @Component({
@@ -108,14 +110,14 @@ if (typeof document !== 'undefined') {
  
 
  adicionarAoCarrinho(produto:{nome:string; preco:number}){
-  this.carrinhoService.adicionar(produto);
+  this.carrinhoFacade.adicionarProdutoCarrinho(produto);
  }
  
 
 //? ============ INJECT ==============
 private produtoService = inject(produtoService); //lembrete: Nossa variável é produtoService e Não produtosService
-public carrinhoService = inject(CarrinhoService);
+carrinhoFacade = inject(CarrinhoFacade);
 
-quantidadeCarrinho = this.carrinhoService.quantidadeItens;
-totalCarrinho = this.carrinhoService.totalItens;
+quantidadeCarrinho = this.carrinhoFacade.quantidadeCarrinho;
+totalCarrinho = this.carrinhoFacade.totalCarrinho;
 }
