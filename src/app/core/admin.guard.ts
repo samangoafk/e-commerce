@@ -2,19 +2,19 @@
 import { inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { CanActivateFn } from "@angular/router";
-import { AuthService } from "./services/auth.service";
+import { AuthFacade } from "./facades/auth.facade";
 
 export const adminGuard: CanActivateFn = () => {
     const router = inject(Router);
-    const authService = inject(AuthService);
+    const authFacade = inject(AuthFacade);
 
     //! Verificar se o usuario está logado
-    if(!authService.usuarioLogado()){
+    if(!authFacade.usuarioLogado()){
         return router.createUrlTree(['/login']);
 
     }
     //! - 2) Verifica se o usuário atual(logado) possui permissão(permissão admnistrador)
-    if(!authService.admin()){
+    if(!authFacade.admin()){
         return router.createUrlTree(['/acesso-negado']);
     }
     //! 3) Se o usuário estiver logado e for admnistrador = acesso liberado
