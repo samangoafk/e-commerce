@@ -1,54 +1,30 @@
-<!-- <h2>
-Produto Selecionado:
-@if (produtoSelecionado()) {
-    <strong style="color: green;" >
-    {{produtoSelecionado()}}
-    </strong>
-}@else {
-    <span style="color: grey"> Nenhum </span>
-}
-</h2>
+<section class="pagina-produtos">
+    <header class="cabecalho=produtos">
+        <div>
+        <h2> Produtos </h2>
+        <p> Escolha os Produtos e adicione-os ao Carrinho! </p>
+        </div>
+        <button mat-stroked-button color="primary" type="button" routerLink="/carrinho"> 
+        Ver Carrinho ({{carrinhoFacade.quantidadeCarrinho()}}) </button>
 
-<h2> Produto: </h2>
 
-@if (carregando()) {
-   <p>Carregando produtos...</p>
-}
-@if (!carregando()) {
-    @for (item of produtos(); track item.nome) {
-        <app-produto
-         [nome] = "item.nome"
-         [preco] = "item.preco"
-         (produtoSelecionado)= "exibirProduto($event)"
-        ></app-produto>
-        
-        <button (click)="adicionarAoCarrinho(item)">Adicionar ao Carrinho</button>
-
-    }
-}
-
-<p><button (click)="adicionarProduto()">Adicionar Produto</button></p>
-<h2>Total de produtos: {{totalProdutos()}}</h2>
-<h3>Valor total: {{valorTotal() |precoFormatado}}</h3> 
-<p><button (click)="subtituiProdutos()">Substituir Produtos</button></p>
-<hr>
- -->
-
-<h2> Produtos: </h2>
-
-<!-- Estado Um-->
-@if(carregando()) {
+    </header>
+    @if(carregando()) {
     <p>Carregando Produtos...</p>
-}
-<!-- Estado Dois-->
- @if(erro()) {
-
+    }
+    @if(erro()) {
+    <section class="mensagem-erro"></section>
     <p style="color:red">{{ erro() }}</p>
-    <button (click)="carregarProdutos()">Tentar Novamente </button>
+    <button mat-stroked-button color="primary" (click)="carregarProdutos()">Tentar Novamente </button>
  }
+     
+
 
  @if (!carregando() && !erro()) {
-    <p>Toral de Produtos: {{ totalProdutos() }}</p>
+    <section class="resumo-produtos">
+    <p><strong> Total de Produtos:</strong>{{totalProdutos()}}</p>
+    <p><strong> Valor total de Produtos:</strong>R$ {{valorTotalFormatado()}}</p>
+    </section>
     
 <hr>
 <section class="grid-produtos">
